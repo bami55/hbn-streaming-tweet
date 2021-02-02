@@ -1,19 +1,19 @@
-const WebhookURL =
-  'https://discord.com/api/webhooks/418737759243730945/QjLcKINqiQFZnFeaanGY-F7a5--anqsCCUIATa1Gsfdxts1kEA1LvlZDqxFOVHKwfwZ-';
-
-const sendWebhook = (data) => {
+const sendWebhook = async (data, webhookUrl) => {
   data = data ?? {};
-  fetch(WebhookURL, {
+  const res = await fetch(webhookUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   });
+  if (res.ok) {
+    alert('送信しました');
+  } else {
+    alert('送信に失敗しました');
+  }
 };
 
 let initWebhookData = {
-  username: 'Name',
-  avatar_url: 'https://github.com/qiita.png',
-  content: '',
+  username: '試合情報',
 };

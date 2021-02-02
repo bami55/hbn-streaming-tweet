@@ -22,6 +22,16 @@ const clearForm = () => {
   document.getElementById('orange_twitch').value = '';
 };
 
+// Twitch URL Replace 短縮
+const replaceTwitchURLShort = (url) => {
+  return url.replace('https://www.twitch.tv/', '');
+};
+
+// Twitch URL Replace フル
+const replaceTwitchURLFull = (url) => {
+  return 'https://www.twitch.tv/' + replaceTwitchURLShort(url);
+};
+
 // 数値ゼロパディング
 const zeroPadding = (value, length) => {
   return (Array(length).join('0') + value).slice(-length);
@@ -39,7 +49,7 @@ const groupBy = (items, key) => {
 const getMultiTwitchURL = (urls) => {
   let url = 'https://www.multitwitch.tv';
   urls.forEach((u) => {
-    url += u.replace('https://www.twitch.tv', '');
+    url += '/' + replaceTwitchURLShort(u);
   });
   return url;
 };
@@ -188,6 +198,13 @@ const createMatchOutput = () => {
   });
 };
 
+// Twitch URL 変更
+document.querySelectorAll('#blue_twitch,#orange_twitch').forEach(el => {
+  el.addEventListener('blur', () => {
+    el.value = replaceTwitchURLShort(el.value);
+  });
+});
+
 // 保存ボタンクリック
 document.getElementById('btn_save').addEventListener('click', () => {
   const hours = document.getElementById('hours').value;
@@ -220,6 +237,21 @@ document.getElementById('btn_save').addEventListener('click', () => {
 
 // 送信ボタンクリック
 document.getElementById('btn_send').addEventListener('click', () => {
+  // 試合情報0件チェック
+  if (matches.length === 0) {
+    alert('試合情報を登録してください。');
+    return;
+  }
+
+  // Webhook URL入力チェック
+  const urlInput = document.getElementById('webhook');
+  const webhookUrl = urlInput.value;
+  if (!webhookUrl) {
+    alert('Webhook URLを入力してください。');
+    urlInput.focus();
+    return;
+  }
+
   // 時間で集約
   matches.sort((a, b) => a.time - b.time);
   const matchGroups = groupBy(matches, 'time');
@@ -232,6 +264,7 @@ document.getElementById('btn_send').addEventListener('click', () => {
     const groupMatches = matchGroups[key];
     let embed = {
       title: key,
+      color: 6570405,
       description: '',
       fields: [],
     };
@@ -241,27 +274,30 @@ document.getElementById('btn_send').addEventListener('click', () => {
     groupMatches.forEach((m) => {
       const title = `:fire: ${m.blue} vs ${m.orange} :fire:`;
       let streaming = '';
-      if (m.blueTwitchUrl && m.orangeTwitchUrl) {
+      let blueTwitchUrl = m.blueTwitchUrl ? replaceTwitchURLFull(m.blueTwitchUrl) : m.blueTwitchUrl;
+      let orangeTwitchUrl = m.orangeTwitchUrl ? replaceTwitchURLFull(m.orangeTwitchUrl) : m.orangeTwitchUrl;
+
+      if (blueTwitchUrl && orangeTwitchUrl) {
         streaming = [
-          `:eyes: ${m.blue} ${m.blueTwitchUrl}`,
-          `:eyes: ${m.orange} ${m.orangeTwitchUrl}`,
+          `:eyes: ${m.blue} ${blueTwitchUrl}`,
+          `:eyes: ${m.orange} ${orangeTwitchUrl}`,
           `:white_check_mark: 両チーム観たいよくばりな方はこちら`,
-          `${getMultiTwitchURL([m.blueTwitchUrl, m.orangeTwitchUrl])}`,
+          `${getMultiTwitchURL([blueTwitchUrl, orangeTwitchUrl])}`,
         ].join('\n');
 
         embed.footer = {
           text: '※コメントする際はどちらのチャンネルか事前に必ず確認してください',
         };
-        streamings.push(m.blueTwitchUrl);
-        streamings.push(m.orangeTwitchUrl);
+        streamings.push(blueTwitchUrl);
+        streamings.push(orangeTwitchUrl);
         streamingsMatchCount++;
-      } else if (m.blueTwitchUrl) {
-        streaming = `:eyes: ${m.blue} ${m.blueTwitchUrl}`;
-        streamings.push(m.blueTwitchUrl);
+      } else if (blueTwitchUrl) {
+        streaming = `:eyes: ${m.blue} ${blueTwitchUrl}`;
+        streamings.push(blueTwitchUrl);
         streamingsMatchCount++;
-      } else if (m.orangeTwitchUrl) {
-        streaming = `:eyes: ${m.orange} ${m.orangeTwitchUrl}`;
-        streamings.push(m.orangeTwitchUrl);
+      } else if (orangeTwitchUrl) {
+        streaming = `:eyes: ${m.orange} ${orangeTwitchUrl}`;
+        streamings.push(orangeTwitchUrl);
         streamingsMatchCount++;
       } else {
         streaming = ':eyes: 配信なし';
@@ -287,5 +323,5 @@ document.getElementById('btn_send').addEventListener('click', () => {
   });
 
   webhookData.embeds = embeds;
-  sendWebhook(webhookData);
+  sendWebhook(webhookData, webhookUrl);
 });

@@ -10,6 +10,16 @@
     <link rel="stylesheet" href="./css/app.css" />
   </head>
   <body class="bg-gray-100">
+    <div class="w-full flex flex-row bg-gray-600 text-gray-100">
+      <span class="flex items-center px-3">
+        <span class="p-2 w-80">試合情報アナウンス</span>
+      </span>
+      <span class="flex items-center px-3 bg-gray-600 rounded">
+        <span class="p-2">Webhook URL</span>
+      </span>
+      <input class="p-2 bg-gray-300 text-gray-600 placeholder-gray-600 w-1/2" type="text" id="webhook"
+        placeholder="Webhook URLを入力してください" />
+    </div>
     <div class="p-4 pt-0 flex flex-row">
       <div class="w-1/2 m-4 text-gray-100 rounded">
         <div class="py-2 flex justify-end">
@@ -35,21 +45,27 @@
             <i class="fas fa-users"></i>
           </span>
           <select class="p-2 bg-blue-200 text-gray-600 appearance-none" id="blue"></select>
-          <span class="ml-6 px-4 w-14">
+          <span class="ml-6">
             <i class="fab fa-twitch"></i>
           </span>
-          <input class="p-2 bg-gray-200 text-gray-600 w-80" type="text" id="blue_twitch" />
-        </span>
+          <span class="px-3">
+            twitch.tv/
+          </span>
+          <input class="p-2 bg-gray-200 text-gray-600 w-40" type="text" id="blue_twitch" />
+          </span>
         <span class="flex items-center px-3 mb-2 bg-gray-600 text-red-200 rounded">
           <span class="p-2 w-24">ORANGE</span>
           <span class="px-4 w-14">
             <i class="fas fa-users"></i>
           </span>
           <select class="p-2 bg-red-200 text-gray-600 appearance-none" id="orange"></select>
-          <span class="ml-6 px-4 w-14">
+          <span class="ml-6">
             <i class="fab fa-twitch"></i>
           </span>
-          <input class="p-2 bg-gray-200 text-gray-600 w-80" type="text" id="orange_twitch" />
+          <span class="px-3">
+            twitch.tv/
+          </span>
+          <input class="p-2 bg-gray-200 text-gray-600 w-40" type="text" id="orange_twitch" />
         </span>
       </div>
       <div class="w-1/2 m-4">
