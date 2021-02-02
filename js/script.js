@@ -210,6 +210,7 @@ document.getElementById('btn_save').addEventListener('click', () => {
   const hours = document.getElementById('hours').value;
   const minutes = document.getElementById('minutes').value;
   const time = `${zeroPadding(hours, 2)}:${zeroPadding(minutes, 2)}`;
+  const timeInt = +`${zeroPadding(hours, 2)}${zeroPadding(minutes, 2)}`;
   const teamBlue = document.getElementById('blue').value;
   const teamOrange = document.getElementById('orange').value;
   const blueTwitchUrl = document.getElementById('blue_twitch').value;
@@ -219,6 +220,7 @@ document.getElementById('btn_save').addEventListener('click', () => {
     hours: hours,
     minutes: minutes,
     time: time,
+    timeInt: timeInt,
     blue: teams[teamBlue],
     orange: teams[teamOrange],
     blueTwitchUrl: blueTwitchUrl,
@@ -253,7 +255,7 @@ document.getElementById('btn_send').addEventListener('click', () => {
   }
 
   // 時間で集約
-  matches.sort((a, b) => a.time - b.time);
+  matches.sort((a, b) => a.timeInt - b.timeInt);
   const matchGroups = groupBy(matches, 'time');
 
   let webhookData = JSON.parse(JSON.stringify(initWebhookData));
