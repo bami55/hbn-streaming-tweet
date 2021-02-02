@@ -1,0 +1,7 @@
+:focus {
+  outline: none;
+}
+
+.container {
+  padding: 2rem;
+}

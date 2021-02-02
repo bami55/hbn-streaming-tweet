@@ -4,9 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HBN Streaming Tweet</title>
+
+    <link rel="stylesheet" href="./css/tailwind.css" />
+    <link rel="stylesheet" href="./css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./css/app.css" />
   </head>
-  <body>
-    <h1>HBN Streaming Tweet</h1>
-    <button>button</button>
+  <body class="bg-gray-100">
+    <div class="p-4 pt-0 flex flex-row">
+      <div class="w-1/2 m-4 text-gray-100 rounded">
+        <div class="py-2 flex justify-end">
+          <button
+            class="p-2 w-40 bg-blue-500 text-gray-200 hover:bg-blue-600 rounded"
+            id="btn_save"
+          >
+            登録
+          </button>
+        </div>
+        <span class="flex items-center px-3 mb-2 bg-gray-600 rounded">
+          <span class="p-2 w-24">時間</span>
+          <span class="px-4 w-14">
+            <i class="fas fa-clock"></i>
+          </span>
+          <select class="p-2 bg-gray-200 text-gray-600 appearance-none" id="hours"></select>
+          <span class="py-2 bg-gray-200 text-gray-600"> : </span>
+          <select class="p-2 bg-gray-200 text-gray-600 appearance-none" id="minutes"></select>
+        </span>
+        <span class="flex items-center px-3 mb-2 bg-gray-600 text-blue-200 rounded">
+          <span class="p-2 w-24">BLUE</span>
+          <span class="px-4 w-14">
+            <i class="fas fa-users"></i>
+          </span>
+          <select class="p-2 bg-blue-200 text-gray-600 appearance-none" id="blue"></select>
+          <span class="ml-6 px-4 w-14">
+            <i class="fab fa-twitch"></i>
+          </span>
+          <input class="p-2 bg-gray-200 text-gray-600 w-80" type="text" id="blue_twitch" />
+        </span>
+        <span class="flex items-center px-3 mb-2 bg-gray-600 text-red-200 rounded">
+          <span class="p-2 w-24">ORANGE</span>
+          <span class="px-4 w-14">
+            <i class="fas fa-users"></i>
+          </span>
+          <select class="p-2 bg-red-200 text-gray-600 appearance-none" id="orange"></select>
+          <span class="ml-6 px-4 w-14">
+            <i class="fab fa-twitch"></i>
+          </span>
+          <input class="p-2 bg-gray-200 text-gray-600 w-80" type="text" id="orange_twitch" />
+        </span>
+      </div>
+      <div class="w-1/2 m-4">
+        <div class="py-2 flex justify-end">
+          <button
+            class="p-2 w-40 bg-gray-100 text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-gray-200 rounded"
+            id="btn_send"
+          >
+            送信
+          </button>
+        </div>
+        <div class="flex flex-col w-full text-gray-200" id="matches"></div>
+      </div>
+    </div>
+
+    <script src="./js/all.min.js"></script>
+    <script src="./js/webhook.js"></script>
+    <script src="./js/script.js"></script>
   </body>
 </html>
