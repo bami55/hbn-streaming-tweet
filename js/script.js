@@ -199,10 +199,20 @@ const createMatchOutput = () => {
 };
 
 // Twitch URL 変更
-document.querySelectorAll('#blue_twitch,#orange_twitch').forEach(el => {
+document.querySelectorAll('#blue_twitch,#orange_twitch').forEach((el) => {
   el.addEventListener('blur', () => {
     el.value = replaceTwitchURLShort(el.value);
   });
+});
+
+// ヘルプボタンクリック
+document.getElementById('icon_help').addEventListener('click', () => {
+  document.getElementById('help').style.display = 'block';
+});
+
+// ヘルプ閉じるボタンクリック
+document.getElementById('btn_close_help').addEventListener('click', () => {
+  document.getElementById('help').style.display = 'none';
 });
 
 // 保存ボタンクリック
@@ -277,7 +287,9 @@ document.getElementById('btn_send').addEventListener('click', () => {
       const title = `:fire: ${m.blue} vs ${m.orange} :fire:`;
       let streaming = '';
       let blueTwitchUrl = m.blueTwitchUrl ? replaceTwitchURLFull(m.blueTwitchUrl) : m.blueTwitchUrl;
-      let orangeTwitchUrl = m.orangeTwitchUrl ? replaceTwitchURLFull(m.orangeTwitchUrl) : m.orangeTwitchUrl;
+      let orangeTwitchUrl = m.orangeTwitchUrl
+        ? replaceTwitchURLFull(m.orangeTwitchUrl)
+        : m.orangeTwitchUrl;
 
       if (blueTwitchUrl && orangeTwitchUrl) {
         streaming = [

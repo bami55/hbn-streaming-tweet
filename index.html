@@ -12,13 +12,22 @@
   <body class="bg-gray-100">
     <div class="w-full flex flex-row bg-gray-600 text-gray-100">
       <span class="flex items-center px-3">
-        <span class="p-2 w-80">試合情報アナウンス</span>
+        <span class="p-2 w-80">
+          試合情報アナウンス
+          <span class="ml-2 text-yellow-300" id="icon_help">
+            <i class="far fa-question-circle" title="試合情報アナウンスの使い方"></i>
+          </span>
+        </span>
       </span>
       <span class="flex items-center px-3 bg-gray-600 rounded">
         <span class="p-2">Webhook URL</span>
       </span>
-      <input class="p-2 bg-gray-300 text-gray-600 placeholder-gray-600 w-1/2" type="text" id="webhook"
-        placeholder="Webhook URLを入力してください" />
+      <input
+        class="p-2 bg-gray-300 text-gray-600 placeholder-gray-600 w-1/2"
+        type="text"
+        id="webhook"
+        placeholder="Webhook URLを入力してください"
+      />
     </div>
     <div class="p-4 pt-0 flex flex-row">
       <div class="w-1/2 m-4 text-gray-100 rounded">
@@ -48,11 +57,9 @@
           <span class="ml-6">
             <i class="fab fa-twitch"></i>
           </span>
-          <span class="px-3">
-            twitch.tv/
-          </span>
+          <span class="px-3"> twitch.tv/ </span>
           <input class="p-2 bg-gray-200 text-gray-600 w-40" type="text" id="blue_twitch" />
-          </span>
+        </span>
         <span class="flex items-center px-3 mb-2 bg-gray-600 text-red-200 rounded">
           <span class="p-2 w-24">ORANGE</span>
           <span class="px-4 w-14">
@@ -62,9 +69,7 @@
           <span class="ml-6">
             <i class="fab fa-twitch"></i>
           </span>
-          <span class="px-3">
-            twitch.tv/
-          </span>
+          <span class="px-3"> twitch.tv/ </span>
           <input class="p-2 bg-gray-200 text-gray-600 w-40" type="text" id="orange_twitch" />
         </span>
       </div>
@@ -81,6 +86,20 @@
       </div>
     </div>
 
+    <div id="help">
+      <div class="flex flex-row justify-between bg-gray-700 text-yellow-300 w-full text-3xl">
+        <span class="ml-8 my-1 p-1">
+          <i class="fas fa-question-circle"></i> 試合情報アナウンスの使い方
+        </span>
+        <button
+          class="mr-8 my-1 p-1 w-40 bg-red-500 text-gray-200 text-xl hover:bg-red-600 hover:text-gray-200 rounded"
+          id="btn_close_help"
+        >
+          <i class="fas fa-times-circle"></i> 閉じる
+        </button>
+      </div>
+      <div id="help_image"></div>
+    </div>
     <script src="./js/all.min.js"></script>
     <script src="./js/webhook.js"></script>
     <script src="./js/script.js"></script>
